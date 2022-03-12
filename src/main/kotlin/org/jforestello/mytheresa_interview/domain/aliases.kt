@@ -1,3 +1,3 @@
 package org.jforestello.mytheresa_interview.domain
 
-typealias DiscountCalculator = (Product) -> Pair<Int, String?>
+typealias DiscountCalculator = (Product) -> Pair<Int, Int>

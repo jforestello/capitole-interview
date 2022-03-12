@@ -11,7 +11,11 @@ private fun calculatePrice(product: Product, calculator: DiscountCalculator): Pr
     return Price(
         original = product.price,
         final = finalPrice,
-        discountPercentage = discountRate,
+        discountPercentage = if (discountRate == 0) {
+            null
+        } else {
+            "${discountRate}%"
+        },
         currency = DEFAULT_CURRENCY
     )
 }

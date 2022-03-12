@@ -15,7 +15,7 @@ class ProductController(
     fun getProducts(): List<ProductResponse> {
         return listOf(
             ProductResponse(Product(
-                "0001", "test", "cat", 12345
+                "000003", "test", "boots", 12345
             ), discountCalculator)
         )
     }
