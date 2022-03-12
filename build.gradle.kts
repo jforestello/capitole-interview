@@ -21,6 +21,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
@@ -51,6 +52,8 @@ tasks.withType<JacocoReport> {
 					"org/jforestello/mytheresa_interview/controller/PingController**",
 					"org/jforestello/mytheresa_interview/usecase/bootstrap**",
 					"org/jforestello/mytheresa_interview/infrastructure/bootstrap**",
+					"org/jforestello/mytheresa_interview/infrastructure/model**",
+					"org/jforestello/mytheresa_interview/infrastructure/**/model/**",
 				)
 			}
 			.let { files(it) }
