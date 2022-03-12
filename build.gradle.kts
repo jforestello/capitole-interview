@@ -50,6 +50,8 @@ tasks.withType<JacocoReport> {
 				fileTree(it).exclude(
 					"org/jforestello/mytheresa_interview/Application**",
 					"org/jforestello/mytheresa_interview/controller/PingController**",
+					"org/jforestello/mytheresa_interview/controller/model**",
+					"org/jforestello/mytheresa_interview/controller/ErrorHandler**",
 					"org/jforestello/mytheresa_interview/usecase/bootstrap**",
 					"org/jforestello/mytheresa_interview/infrastructure/bootstrap**",
 					"org/jforestello/mytheresa_interview/infrastructure/model**",

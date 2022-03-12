@@ -8,13 +8,9 @@ import org.jforestello.mytheresa_interview.infrastructure.model.RecordID
 import org.jforestello.mytheresa_interview.infrastructure.product.model.ProductRecord
 
 class ProductStorage: ProductRepository, InMemoryStorage<Product, ProductRecord>() {
-    // TODO: Hardcode temporal para tener una respuesta
-    init {
-        storage[0] = ProductRecord(
-            Product(
-                "000003", "test", "boots", 12345
-            ), 0
-        )
+
+    override suspend fun save(product: Product) {
+        create(product)
     }
 
     override fun search(filters: List<ProductRepository.Filter>, limit: Int): List<Product> {
@@ -25,7 +21,7 @@ class ProductStorage: ProductRepository, InMemoryStorage<Product, ProductRecord>
             } else {
                 null
             }
-        }
+        }.take(limit)
     }
 
     override fun getRecord(domain: Product, id: RecordID): ProductRecord {

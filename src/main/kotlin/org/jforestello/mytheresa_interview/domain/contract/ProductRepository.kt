@@ -4,6 +4,8 @@ import org.jforestello.mytheresa_interview.domain.Product
 
 interface ProductRepository {
 
+    suspend fun save(product: Product)
+
     fun search(filters: List<Filter>, limit: Int): List<Product>
 
     sealed class Filter private constructor() {
