@@ -23,7 +23,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.2")
+	testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+	testImplementation("io.mockk:mockk:1.12.3")
 }
 
 tasks.withType<KotlinCompile> {
@@ -49,6 +50,7 @@ tasks.withType<JacocoReport> {
 					"org/jforestello/mytheresa_interview/Application**",
 					"org/jforestello/mytheresa_interview/controller/PingController**",
 					"org/jforestello/mytheresa_interview/usecase/bootstrap**",
+					"org/jforestello/mytheresa_interview/infrastructure/bootstrap**",
 				)
 			}
 			.let { files(it) }
