@@ -40,8 +40,8 @@ tasks.withType<Test> {
 
 tasks.withType<JacocoReport> {
 	reports {
-		xml.isEnabled = false
-		html.isEnabled = true
+		xml.required.set(true)
+		html.required.set(true)
 	}
 	afterEvaluate {
 		val coverageParticipants = classDirectories.files
