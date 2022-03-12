@@ -16,14 +16,17 @@ interface ProductRepository {
         }
 
         abstract fun filter(product: Product): Boolean
-        fun filter(products: List<Product>) = products.filter { filter(it) }
+    }
+}
+
+fun List<ProductRepository.Filter>.apply(element: Product): Boolean {
+    return this.all {
+        it.filter(element)
     }
 }
 
 fun List<ProductRepository.Filter>.apply(elements: List<Product>): List<Product> {
-    var products = elements
-    this.forEach {
-        products = it.filter(products)
+    return elements.filter {
+        this.apply(it)
     }
-    return products
 }
