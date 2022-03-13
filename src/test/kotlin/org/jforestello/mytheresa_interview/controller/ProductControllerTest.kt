@@ -63,30 +63,80 @@ internal class ProductControllerTest {
     fun `test getProducts, given a category and max price, then both are passed to provider`() {
         val expectedCategory = "expected"
         val expectedMaxPrice = 2000
+        var actualCategory: String? = null
+        var actualMaxPrice: Int? = null
         val controller = ProductController(
             { PRODUCT.price to 0 },
-            { actualCategory, actualMaxPrice ->
-                Assertions.assertAll(
-                    { Assertions.assertEquals(expectedCategory, actualCategory) },
-                    { Assertions.assertEquals(expectedMaxPrice, actualMaxPrice) }
-                )
+            { cat, price ->
+                actualCategory = cat
+                actualMaxPrice = price
                 listOf(PRODUCT)
             },
             {}
         )
 
         controller.getProducts(expectedCategory, expectedMaxPrice)
+
+        Assertions.assertAll(
+            { Assertions.assertEquals(expectedCategory, actualCategory) },
+            { Assertions.assertEquals(expectedMaxPrice, actualMaxPrice) }
+        )
     }
 
     @Test
-    fun `test saveProducts, given many valid requests, then everything is passed to provider`() {
-        val expected = PRODUCTS
+    fun `test saveProducts, given many valid requests, then everything is passed to provider and returned as product response`() {
+        val expected = listOf(
+            ProductResponse(
+                sku = PRODUCT.sku,
+                name = PRODUCT.name,
+                category = PRODUCT.category,
+                price = Price(
+                    original = PRODUCT.price,
+                    final = PRODUCT.price,
+                    discountPercentage = null,
+                    currency = "EUR"
+                )
+            ),
+            ProductResponse(
+                sku = PRODUCT_2.sku,
+                name = PRODUCT_2.name,
+                category = PRODUCT_2.category,
+                price = Price(
+                    original = PRODUCT_2.price,
+                    final = PRODUCT_2.price,
+                    discountPercentage = null,
+                    currency = "EUR"
+                )
+            ),
+            ProductResponse(
+                sku = PRODUCT_3.sku,
+                name = PRODUCT_3.name,
+                category = PRODUCT_3.category,
+                price = Price(
+                    original = PRODUCT_3.price,
+                    final = PRODUCT_3.price,
+                    discountPercentage = null,
+                    currency = "EUR"
+                )
+            ),
+            ProductResponse(
+                sku = PRODUCT_4.sku,
+                name = PRODUCT_4.name,
+                category = PRODUCT_4.category,
+                price = Price(
+                    original = PRODUCT_4.price,
+                    final = PRODUCT_4.price,
+                    discountPercentage = null,
+                    currency = "EUR"
+                )
+            )
+        )
+        val expectedProducts = PRODUCTS
+        var actualProducts: List<Product>? = null
         val controller = ProductController(
-            { 0 to 0 },
+            { it.price to 0 },
             { _, _ -> emptyList() },
-            { actual ->
-                Assertions.assertEquals(expected, actual)
-            }
+            { actualProducts = it }
         )
         val requests = listOf(
             ProductRequest(
@@ -115,7 +165,12 @@ internal class ProductControllerTest {
             ),
         )
 
-        controller.saveProducts(requests)
+        val actual = controller.saveProducts(requests)
+
+        Assertions.assertAll(
+            { Assertions.assertEquals(expectedProducts, actualProducts) },
+            { Assertions.assertEquals(expected, actual) }
+        )
     }
 
     companion object {

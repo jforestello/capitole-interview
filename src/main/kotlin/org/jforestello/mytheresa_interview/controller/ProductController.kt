@@ -32,9 +32,13 @@ class ProductController(
     @PostMapping("/products")
     fun saveProducts(
         @RequestBody productsBody: List<ProductRequest>
-    ) {
+    ): List<ProductResponse> {
         val products = productsBody.toDomain()
 
         productsStorage(products)
+
+        return products.map {
+            ProductResponse(it, discountCalculator)
+        }
     }
 }
