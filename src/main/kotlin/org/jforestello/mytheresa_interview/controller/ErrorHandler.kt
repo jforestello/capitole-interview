@@ -1,5 +1,6 @@
 package org.jforestello.mytheresa_interview.controller
 
+import java.lang.Exception
 import org.jforestello.mytheresa_interview.controller.model.error.ApiException
 import org.jforestello.mytheresa_interview.controller.model.error.BadRequestException
 import org.springframework.http.HttpStatus
@@ -10,6 +11,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 class ErrorHandler: ResponseEntityExceptionHandler() {
+
+    @ExceptionHandler(Exception::class)
+    fun handleUnexpectedException(): ResponseEntity<ApiException> {
+        return ResponseEntity.internalServerError()
+            .body(ApiException(
+                status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                message = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase
+            ))
+    }
 
     @ExceptionHandler(BadRequestException::class)
     fun handleBadRequestException(e: BadRequestException): ResponseEntity<ApiException> {
