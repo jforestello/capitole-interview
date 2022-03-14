@@ -2,7 +2,7 @@ package org.jforestello.mytheresa_interview.infrastructure.product
 
 import kotlinx.coroutines.runBlocking
 import org.jforestello.mytheresa_interview.domain.Product
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository
+import org.jforestello.mytheresa_interview.domain.contract.ProductSearcher
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,7 +49,7 @@ internal class ProductStorageTest {
         val expected = listOf(PRODUCT)
 
         val actual = storage.search(listOf(
-            ProductRepository.Filter.Category(PRODUCT.category)
+            ProductSearcher.Filter.Category(PRODUCT.category)
         ), LIMIT)
 
         Assertions.assertEquals(expected, actual)
@@ -60,7 +60,7 @@ internal class ProductStorageTest {
         val expected = listOf(PRODUCT)
 
         val actual = storage.search(listOf(
-            ProductRepository.Filter.Category("category")
+            ProductSearcher.Filter.Category("category")
         ), LIMIT)
 
         Assertions.assertEquals(expected, actual)

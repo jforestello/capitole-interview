@@ -1,23 +1,23 @@
 package org.jforestello.mytheresa_interview.usecase.products_provider
 
 import org.jforestello.mytheresa_interview.domain.Product
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository
+import org.jforestello.mytheresa_interview.domain.contract.ProductSearcher
 
 class ProductsProviderWithLimit(
     private val limit: Int,
-    private val repository: ProductRepository
+    private val searcher: ProductSearcher
 ) {
 
     operator fun invoke(category: String?, maxPrice: Int?): List<Product> {
         val filters = listOfNotNull(
             category?.let {
-                ProductRepository.Filter.Category(it)
+                ProductSearcher.Filter.Category(it)
             },
             maxPrice?.let {
-                ProductRepository.Filter.MaxPrice(it)
+                ProductSearcher.Filter.MaxPrice(it)
             }
         )
 
-        return repository.search(filters, limit)
+        return searcher.search(filters, limit)
     }
 }

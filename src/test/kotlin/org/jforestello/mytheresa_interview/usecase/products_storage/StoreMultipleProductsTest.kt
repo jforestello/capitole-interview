@@ -3,20 +3,20 @@ package org.jforestello.mytheresa_interview.usecase.products_storage
 import io.mockk.coVerifyAll
 import io.mockk.mockk
 import org.jforestello.mytheresa_interview.domain.Product
-import org.jforestello.mytheresa_interview.domain.ProductsStorage
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository
+import org.jforestello.mytheresa_interview.domain.ProductsSaver
+import org.jforestello.mytheresa_interview.domain.contract.ProductSaver
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class StoreMultipleProductsTest {
-    private lateinit var repository: ProductRepository
-    private lateinit var instance: ProductsStorage
+    private lateinit var saver: ProductSaver
+    private lateinit var instance: ProductsSaver
 
     @BeforeEach
     fun setup() {
-        repository = mockk(relaxed = true)
+        saver = mockk(relaxed = true)
         instance = StoreMultipleProducts(
-            repository = repository
+            saver = saver
         )::invoke
     }
 
@@ -26,10 +26,10 @@ internal class StoreMultipleProductsTest {
         instance(PRODUCTS)
 
         coVerifyAll {
-            repository.save(eq(PRODUCT))
-            repository.save(eq(PRODUCT_2))
-            repository.save(eq(PRODUCT_3))
-            repository.save(eq(PRODUCT_4))
+            saver.save(eq(PRODUCT))
+            saver.save(eq(PRODUCT_2))
+            saver.save(eq(PRODUCT_3))
+            saver.save(eq(PRODUCT_4))
         }
     }
     companion object {

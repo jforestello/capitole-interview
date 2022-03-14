@@ -2,11 +2,13 @@ package org.jforestello.mytheresa_interview
 
 import org.jforestello.mytheresa_interview.domain.DiscountCalculator
 import org.jforestello.mytheresa_interview.domain.ProductsProvider
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository
-import org.jforestello.mytheresa_interview.infrastructure.getProductRepository
+import org.jforestello.mytheresa_interview.domain.contract.ProductSaver
+import org.jforestello.mytheresa_interview.domain.contract.ProductSearcher
+import org.jforestello.mytheresa_interview.infrastructure.getProductSaver
+import org.jforestello.mytheresa_interview.infrastructure.getProductSearcher
 import org.jforestello.mytheresa_interview.usecase.getDiscountCalculator
 import org.jforestello.mytheresa_interview.usecase.getProductsProvider
-import org.jforestello.mytheresa_interview.usecase.getProductsStorage
+import org.jforestello.mytheresa_interview.usecase.getProductsSaver
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -16,16 +18,21 @@ import org.springframework.context.annotation.Bean
 class Application {
 
 	@Bean
-	fun productRepository() = getProductRepository()
+	fun productSaver() = getProductSaver()
 
 	@Bean
-	fun productsStorage(repository: ProductRepository) = getProductsStorage(repository)
+	fun productSearcher() = getProductSearcher()
+
+	@Bean
+	fun productsSaver(
+		saver: ProductSaver,
+	) = getProductsSaver(saver)
 
 	@Bean
 	fun productsProvider(
 		@Value("\${provider.limit}") limit: Int,
-		repository: ProductRepository
-	): ProductsProvider = getProductsProvider(limit, repository)
+		searcher: ProductSearcher
+	): ProductsProvider = getProductsProvider(limit, searcher)
 
 	@Bean
 	fun discountCalculator(): DiscountCalculator = getDiscountCalculator()

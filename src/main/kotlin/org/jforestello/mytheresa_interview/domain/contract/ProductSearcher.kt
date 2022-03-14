@@ -2,9 +2,7 @@ package org.jforestello.mytheresa_interview.domain.contract
 
 import org.jforestello.mytheresa_interview.domain.Product
 
-interface ProductRepository {
-
-    suspend fun save(product: Product)
+interface ProductSearcher {
 
     fun search(filters: List<Filter>, limit: Int): List<Product>
 
@@ -21,13 +19,13 @@ interface ProductRepository {
     }
 }
 
-fun List<ProductRepository.Filter>.apply(element: Product): Boolean {
+fun List<ProductSearcher.Filter>.apply(element: Product): Boolean {
     return this.all {
         it.filter(element)
     }
 }
 
-fun List<ProductRepository.Filter>.apply(elements: List<Product>): List<Product> {
+fun List<ProductSearcher.Filter>.apply(elements: List<Product>): List<Product> {
     return elements.filter {
         this.apply(it)
     }

@@ -2,13 +2,13 @@ package org.jforestello.mytheresa_interview.domain.contract
 
 import java.util.stream.Stream
 import org.jforestello.mytheresa_interview.domain.Product
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository.Filter
+import org.jforestello.mytheresa_interview.domain.contract.ProductSearcher.Filter
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-internal class ProductRepositoryTest {
+internal class ProductSearcherTest {
 
     @ParameterizedTest(name = "with {0} filters")
     @MethodSource("getFilters")

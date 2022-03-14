@@ -4,16 +4,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jforestello.mytheresa_interview.domain.Product
-import org.jforestello.mytheresa_interview.domain.contract.ProductRepository
+import org.jforestello.mytheresa_interview.domain.contract.ProductSaver
 
 class StoreMultipleProducts(
-    private val repository: ProductRepository
+    private val saver: ProductSaver
 ) {
 
     operator fun invoke(products: List<Product>) {
         products.forEach {
             CoroutineScope(Dispatchers.Default).launch {
-                repository.save(it)
+                saver.save(it)
             }
         }
     }
