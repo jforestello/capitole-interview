@@ -57,7 +57,7 @@ internal class ProductStorageTest {
 
     @Test
     fun `test search, with no matching filter, then returns empty list`() {
-        val expected = listOf(PRODUCT)
+        val expected = emptyList<Product>()
 
         val actual = storage.search(listOf(
             ProductSearcher.Filter.Category("category")
